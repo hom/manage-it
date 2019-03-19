@@ -14,6 +14,8 @@ module.exports = {
     'on-trailing-spaces': 'off',
     'space-before-function-paren': 'off',
     'comma-dangle': 'off',
+    'max-len': 'off',
+    'object-curly-newline': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',
