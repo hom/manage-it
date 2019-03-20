@@ -15,7 +15,13 @@ export default {
       commit('SET_ME', form);
       setTimeout(() => {
         router.push('/');
-      })
+      }, 1000)
     },
+    ACTION_LOGOUT({ commit }) {
+      commit('SET_ME', '');
+      setTimeout(() => {
+        router.push('/login');
+      }, 1000)
+    }
   }
 }
