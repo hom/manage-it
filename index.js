@@ -8,7 +8,7 @@ let app = express();
 
 // parse body data
 app.use(express.json());
-app.use(express.urlencoded())
+app.use(express.urlencoded({extended: false}));
 
 // serve the static resource
 app.use(express.static(path.join(__dirname, 'dist')));
