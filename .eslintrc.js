@@ -16,7 +16,8 @@ module.exports = {
     'comma-dangle': 'off',
     'max-len': 'off',
     'object-curly-newline': 'off',
-    'no-param-reassign': ['error', { props: false }],
+    'no-param-reassign': 'off',
+    'object-property-newline': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',

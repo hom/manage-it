@@ -1,18 +1,18 @@
 <template>
   <el-container>
     <Aside />
-    <Main />
+    <el-main>
+      <router-view></router-view>
+    </el-main>
   </el-container>
 </template>
 
 <script>
-import Main from '@/components/main.vue';
 import Aside from '@/components/aside.vue';
 
 export default {
   name: 'home',
   components: {
-    Main,
     Aside
   },
   data() {
