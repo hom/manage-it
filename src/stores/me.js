@@ -11,6 +11,12 @@ export default {
     },
   },
   actions: {
+    ACTION_CHECK_LOGIN({ commit }) {
+      if (localStorage.getItem('user')) {
+        commit('SET_ME', JSON.parse(localStorage.getItem('user')));
+      }
+      router.push('/login');
+    },
     ACTION_LOGIN({ commit }, form) {
       commit('SET_ME', form);
       setTimeout(() => {
@@ -22,6 +28,6 @@ export default {
       setTimeout(() => {
         router.push('/login');
       }, 1000)
-    }
+    },
   }
 }
