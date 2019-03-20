@@ -1,3 +1,5 @@
+import router from '../router';
+
 export default {
   namespaced: true,
   state: {
@@ -11,6 +13,9 @@ export default {
   actions: {
     ACTION_LOGIN({ commit }, form) {
       commit('SET_ME', form);
+      setTimeout(() => {
+        router.push('/');
+      })
     },
   }
 }
