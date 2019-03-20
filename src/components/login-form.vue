@@ -50,7 +50,7 @@ export default {
           })
         } else {
           this.logining = true;
-          // this.$store.dispatch('me/ACTION_LOGIN', this.form);
+          this.$store.dispatch('me/ACTION_LOGIN', this.form);
         }
       })
     },
