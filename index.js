@@ -14,9 +14,14 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // default router entry
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
   fs.createReadStream(path.join(__dirname, 'dist', 'index.html')).pipe(res);
+})
+
+app.get('/config', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  fs.createReadStream(path.join(__dirname, 'manage-it-config.json')).pipe(res);
 })
 
 // The port of server listening on
