@@ -13,11 +13,12 @@ const router = new Router({
     // which is lazy-loaded when the route is visited.
     { path: '/', name: 'home', meta: { title: '首页' }, component: Home,
       children: [
-        { path: 'schema', component: () => import('./components/schema.vue'), },
+        { path: '/schema/:className', component: () => import('./components/schema.vue'), },
+        { path: '/database/:className', component: () => import('./components/database.vue'), },
       ]
     },
     { path: '/about', name: 'about', component: () => import(/* webpackChunkName: "about" */ './views/About.vue'), },
-    { path: '/login', name: 'login', meta: { title: '登录' }, component: () => import(/* webpackChunkName: "about" */ './views/Login.vue') },
+    { path: '/login', name: 'login', meta: { title: '登录' }, component: () => import(/* webpackChunkName: "login" */ './views/Login.vue') },
   ],
 });
 

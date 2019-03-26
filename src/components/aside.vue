@@ -1,63 +1,28 @@
 <template>
-  <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-    <el-menu :router="true" @open="handleOpen" @select="handleSelect" :default-openeds="['1', '3']">
-      <el-submenu index="data">
-        <template slot="title"><i class="el-icon-message"></i>数据管理</template>
-        <el-submenu index="schema">
-          <template slot="title">SCHEMA管理</template>
-          <el-menu-item index="schema">_USER</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-submenu>
-        <el-submenu index="1-2">
-          <template slot="title">SCHEMA管理</template>
-          <el-menu-item index="1-1">_USER</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-submenu>
+  <el-aside width="200px">
+    <el-menu :default-active="active" :default-openeds="opens" @open="handleOpen" @select="handleSelect">
+      <el-submenu index="/nav">
+        <template slot="title"><i class="el-icon-message"></i>菜单管理</template>
       </el-submenu>
-      <el-submenu index="2">
-        <template slot="title"><i class="el-icon-menu"></i>用户管理</template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="2-1">选项1</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="2-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="2-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-        </el-submenu>
+      <el-submenu index="/schema">
+        <template slot="title"><i class="el-icon-setting"></i>SCHEMA管理</template>
+        <el-menu-item v-for="(schema, index) in schemas" :key="index" :index="`/schema/${schema.className}`">{{ schema.className }}</el-menu-item>
       </el-submenu>
-      <el-submenu index="3">
-        <template slot="title"><i class="el-icon-setting"></i>系统设置</template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="3-1">选项1</el-menu-item>
-          <el-menu-item index="3-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="3-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="3-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-        </el-submenu>
+      <el-submenu index="/database">
+        <template slot="title"><i class="el-icon-setting"></i>数据管理</template>
+        <el-menu-item v-for="(schema, index) in schemas" :key="index" :index="`/database/${schema.className}`">{{ schema.className }}</el-menu-item>
       </el-submenu>
     </el-menu>
   </el-aside>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data() {
-    const item = {
-      date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄'
-    };
     return {
-      tableData: Array(20).fill(item)
+      opens: []
     }
   },
   methods: {
@@ -72,6 +37,15 @@ export default {
       this.$router.push(index);
     }
   },
+  computed: {
+    ...mapState({
+      schemas: (state) => state.schema.schemas,
+      active: (state) => state.nav.active,
+    }),
+  },
+  mounted() {
+    this.$store.dispatch('schema/ACTION_FETCH_SCHEMAS');
+  }
 };
 </script>
 

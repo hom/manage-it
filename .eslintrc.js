@@ -18,6 +18,7 @@ module.exports = {
     'object-curly-newline': 'off',
     'no-param-reassign': 'off',
     'object-property-newline': 'off',
+    'arrow-parens': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',
