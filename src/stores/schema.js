@@ -18,7 +18,7 @@ export default {
     async ACTION_FETCH_SCHEMAS({ commit }) {
       let result;
       try {
-        result = await axios.get('https://portal.pongj.com/parse/schemas', {
+        result = await axios.get('https://manage.pongj.com/parse/schemas', {
           headers: {
             'X-Parse-Application-Id': '2862a6800343b0d62411b950c1d9ed81',
             'X-Parse-Master-Key': 'a2fcb171fb635f17f522c262de526a6e'
@@ -46,7 +46,7 @@ export default {
       if (!schema) {
         let result;
         try {
-          result = await axios.get(`https://portal.pongj.com/parse/schemas/${className}`, {
+          result = await axios.get(`https://manage.pongj.com/parse/schemas/${className}`, {
             headers: {
               'X-Parse-Application-Id': '2862a6800343b0d62411b950c1d9ed81',
               'X-Parse-Master-Key': 'a2fcb171fb635f17f522c262de526a6e'
