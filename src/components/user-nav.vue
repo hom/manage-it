@@ -54,10 +54,10 @@ export default {
 .user-nav {
   flex-grow: 1;
   text-align: center;
-  border-bottom: 1px solid #eee;
   line-height: 61px;
 }
 .el-dropdown {
   margin-right: 25px;
+  color: #EEEEEE;
 }
 </style>

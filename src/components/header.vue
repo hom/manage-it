@@ -25,6 +25,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: #fff;
+  background-color: #545c64;
+  color: #EEEEEE;
 }
 </style>

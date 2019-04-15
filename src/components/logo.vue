@@ -1,18 +1,6 @@
 <template>
-  <router-link to="/" class="logo" tag="h2">
-    <LogoSvg />
-  </router-link>
+  <router-link to="/" class="logo" tag="h2">Manage-it</router-link>
 </template>
-
-<script>
-import LogoSvg from '@/components/logo-svg.vue';
-
-export default {
-  components: {
-    LogoSvg,
-  },
-}
-</script>
 
 <style lang="scss" scoped>
 .logo {
@@ -21,8 +9,7 @@ export default {
   height: 61px;
   line-height: 61px;
   text-align: center;
-  border-bottom: 1px solid #eee;
-  color: #505050;
+  color: #EEEEEE;
   overflow: hidden;
 }
 </style>
