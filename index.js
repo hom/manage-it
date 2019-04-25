@@ -4,11 +4,11 @@ const path = require('path');
 const fs = require('fs');
 
 // create app instance
-let app = express();
+const app = express();
 
 // parse body data
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // serve the static resource
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -25,7 +25,7 @@ app.get('/config', (req, res) => {
 })
 
 // The port of server listening on
-let port = process.env.MANAGE_IT_PORT || 10987;
+const port = process.env.MANAGE_IT_PORT || 10987;
 app.listen(port, () => {
   console.log(`Manage-it is running on port: ${port}`);
 })

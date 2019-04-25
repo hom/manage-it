@@ -17,7 +17,6 @@ const router = new Router({
         { path: '/database/:className', component: () => import('./components/database.vue'), },
       ]
     },
-    { path: '/about', name: 'about', component: () => import(/* webpackChunkName: "about" */ './views/About.vue'), },
     { path: '/login', name: 'login', meta: { title: '登录' }, component: () => import(/* webpackChunkName: "login" */ './views/Login.vue') },
   ],
 });
