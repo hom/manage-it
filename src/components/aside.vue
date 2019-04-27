@@ -46,7 +46,7 @@ export default {
     handleSelect(index, indexPath) {
       console.log(index);
       console.log(indexPath);
-      // this.$router.push(index);
+      this.$router.push(index);
     }
   },
   computed: {

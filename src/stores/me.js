@@ -1,3 +1,4 @@
+import { Message } from 'element-ui';
 import router from '../router';
 
 export default {
@@ -21,6 +22,7 @@ export default {
       commit('SET_ME', form);
       localStorage.setItem('CURRENT_USER', JSON.stringify(form));
 
+      Message.success('登陆成功');
       setTimeout(() => {
         router.push('/');
       }, 1000)
@@ -28,6 +30,8 @@ export default {
     ACTION_LOGOUT({ commit }) {
       localStorage.removeItem('CURRENT_USER')
       commit('SET_ME', '');
+
+      Message.success('退出登录');
       setTimeout(() => {
         router.push('/login');
       }, 1000)

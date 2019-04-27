@@ -2,9 +2,15 @@
   <el-table
     :data="collection.results"
     stripe
-    style="width: 100%">
+    style="width: 100%"
+    @selection-change="handleSelectionChange">
+    <el-table-column
+      type="selection"
+      width="55">
+    </el-table-column>
     <el-table-column
       v-for="(field, index) in fields"
+      show-overflow-tooltip
       :key="index"
       :prop="field.field"
       :label="field.field">
@@ -30,7 +36,9 @@ import { mapState } from 'vuex';
 
 export default {
   data() {
-    return {}
+    return {
+      multipleSelection: [],
+    }
   },
   computed: {
     ...mapState({
@@ -52,7 +60,10 @@ export default {
   methods: {
     handleDelete(row) {
       console.log(row);
-    }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
   },
   mounted() {
     console.log(this.$route.params);
