@@ -2,7 +2,19 @@
   <el-aside width="200px">
     <el-menu :default-active="active" :default-openeds="opens" @open="handleOpen" @select="handleSelect">
       <el-submenu index="/nav">
-        <template slot="title"><i class="el-icon-message"></i>菜单管理</template>
+        <template slot="title"><i class="el-icon-message"></i>系统管理</template>
+        <el-menu-item-group>
+          <template slot="title">系统</template>
+          <el-menu-item index="1-1">菜单管理</el-menu-item>
+          <el-menu-item index="1-2">用户管理</el-menu-item>
+        </el-menu-item-group>
+        <el-menu-item-group title="应用">
+          <el-menu-item index="1-3">SCHEMA</el-menu-item>
+        </el-menu-item-group>
+        <el-submenu index="1-4">
+          <template slot="title">选项4</template>
+          <el-menu-item index="1-4-1">选项1</el-menu-item>
+        </el-submenu>
       </el-submenu>
       <el-submenu index="/schema">
         <template slot="title"><i class="el-icon-setting"></i>SCHEMA管理</template>
@@ -34,7 +46,7 @@ export default {
     handleSelect(index, indexPath) {
       console.log(index);
       console.log(indexPath);
-      this.$router.push(index);
+      // this.$router.push(index);
     }
   },
   computed: {
