@@ -28,6 +28,7 @@ export default {
         return console.error(error);
       }
 
+      console.log(result.data);
       const schemas = {};
       result.data.results.forEach((item) => {
         schemas[item.className] = item;

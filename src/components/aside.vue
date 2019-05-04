@@ -1,6 +1,21 @@
 <template>
   <el-aside width="200px">
-    <el-menu :default-active="active" :default-openeds="opens" @open="handleOpen" @select="handleSelect">
+    <el-dropdown>
+      <span class="el-dropdown-link">
+        切换应用<i class="el-icon-arrow-down el-icon--right"></i>
+      </span>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item>Parse-Server-Dashboard</el-dropdown-item>
+        <el-dropdown-item>Hammer-Server-Dashboard</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+    <el-menu
+      :default-active="active"
+      :default-openeds="opens"
+      @open="handleOpen"
+      background-color="#2F689B"
+      text-color="#ffffff"
+      @select="handleSelect">
       <el-submenu index="/nav">
         <template slot="title"><i class="el-icon-message"></i>系统管理</template>
         <el-menu-item-group>
@@ -19,6 +34,10 @@
       <el-submenu index="/schema">
         <template slot="title"><i class="el-icon-setting"></i>SCHEMA管理</template>
         <el-menu-item v-for="(schema, index) in schemas" :key="index" :index="`/schema/${schema.className}`">{{ schema.className }}</el-menu-item>
+      </el-submenu>
+      <el-submenu index="/database">
+        <template slot="title"><i class="el-icon-setting"></i>数据管理</template>
+        <el-menu-item v-for="(schema, index) in schemas" :key="index" :index="`/database/${schema.className}`">{{ schema.className }}</el-menu-item>
       </el-submenu>
       <el-submenu index="/database">
         <template slot="title"><i class="el-icon-setting"></i>数据管理</template>
@@ -69,6 +88,15 @@ export default {
 }
 
 .el-aside {
-  color: #333;
+  color: #eeeeee;
+  background-color: #25547E;
+  height: 100vh;
+  text-align: center;
+}
+
+.el-dropdown {
+  height: 60px;
+  line-height: 60px;
+  font-size: 18px;
 }
 </style>

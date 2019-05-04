@@ -1,44 +1,95 @@
 <template>
+<el-container>
   <el-table
-    :data="collection.results"
     stripe
+    border
+    :data="collection.results"
     style="width: 100%"
+    :cell-style="{'padding-top': '6px', 'padding-bottom': '6px', 'font-size': '14px'}"
+    @cell-mouse-enter="handleCellMouseEnter"
+    @cell-mouse-leave="handleCellMouseLeave"
+    @cell-dblclick="handleCellDbClick"
     @selection-change="handleSelectionChange">
     <el-table-column
+      fixed="left"
       type="selection"
       width="55">
     </el-table-column>
     <el-table-column
-      v-for="(field, index) in fields"
-      show-overflow-tooltip
-      :key="index"
-      :prop="field.field"
-      :label="field.field">
-      <template slot-scope="scope">
-        {{ typeof scope.row[field.field] === 'object' ? JSON.stringify(scope.row[field.field]) : scope.row[field.field] }}
-      </template>
-
-    </el-table-column>
-    <el-table-column
-      fixed="right"
+      fixed="left"
       label="操作"
       width="100">
       <template slot-scope="scope">
-        <el-button type="text" size="small">编辑</el-button>
+        <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
         <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
       </template>
     </el-table-column>
+    <el-table-column
+      align="center"
+      v-for="(field, index) in fields"
+      show-overflow-tooltip
+      :key="index"
+      width="160"
+      :prop="field.field"
+      :label="`${field.field}/${field.type}`">
+      <template slot-scope="scope">
+        <RowColumn :row="scope.row" :field="field" />
+      </template>
+    </el-table-column>
   </el-table>
+  <el-dialog ref="EDIT_ROW_DIALOG" :title="row.objectId" :visible.sync="isShowEditDialog">
+    <el-form :model="row">
+      <el-form-item v-for="(field, index) in Object.keys(row)" :key="index" :label="field" :label-width="formLabelWidth">
+        <el-switch v-if="schema.fields[field].type === 'Boolean'" v-model="row[field]"></el-switch>
+        <!-- <el-input v-else-if="schema.fields[field].type === 'Pointer'" v-model="row[field].objectId" :disabled="field === 'createdAt' || field === 'updatedAt' || field === 'objectId'" autocomplete="off"></el-input> -->
+        <div v-else-if="schema.fields[field].type === 'ACL'">
+          <el-form-item v-for="(acl, key) in Object.keys(row[field])" :key="key" :label="acl === '*' ? '所有人' : acl" prop="delivery">
+            <el-switch
+              v-model="row[field][acl].read"
+              active-text="读">
+            </el-switch>
+            <el-switch
+              v-model="row[field][acl].write"
+              active-text="写">
+            </el-switch>
+          </el-form-item>
+        </div>
+        <el-select v-else-if="schema.fields[field].type === 'Pointer'" v-model="row[field].objectId" :placeholder="row[field].objectId">
+          <el-option label="区域一" value="shanghai"></el-option>
+          <el-option label="区域二" value="beijing"></el-option>
+        </el-select>
+        <el-input v-else v-model="row[field]" :disabled="field === 'createdAt' || field === 'updatedAt' || field === 'objectId'" autocomplete="off"></el-input>
+      </el-form-item>
+    </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="isShowEditDialog = false">完 成</el-button>
+      </div>
+  </el-dialog>
+  <el-dialog ref="EDIT_CELL_DIALOG" :title="cell.field" :close="handleCloseEditCellDialog" :visible.sync="isShowEditCellDialog">
+      <EditRowCell :cell="cell" />
+  </el-dialog>
+</el-container>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import RowColumn from '@/components/row-column.vue';
+import EditRowCell from '@/components/edit-row-cell.vue';
 
 export default {
   data() {
     return {
       multipleSelection: [],
+      row: '',
+      cell: '',
+      formLabelWidth: '120px',
+      isShowEditDialog: false,
+      isShowEditCellDialog: false,
     }
+  },
+  components: {
+    RowColumn,
+    EditRowCell,
   },
   computed: {
     ...mapState({
@@ -58,11 +109,34 @@ export default {
     }),
   },
   methods: {
+    handleCellMouseEnter(row, column, cell, e) {
+      e.target.style.color = 'green';
+    },
+    handleCellDbClick(row, column) {
+      const field = column.label.split('/');
+      this.cell = {
+        cell: row[field[0]],
+        field: field[0],
+        type: field[1],
+      }
+      this.isShowEditCellDialog = true;
+    },
+    handleCellMouseLeave(row, column, cell, e) {
+      e.target.style.color = '#606266';
+    },
+    handleEdit(row) {
+      console.log(row);
+      this.row = row;
+      this.isShowEditDialog = true;
+    },
     handleDelete(row) {
       console.log(row);
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    handleCloseEditCellDialog() {
+      this.cell = '';
     },
   },
   mounted() {

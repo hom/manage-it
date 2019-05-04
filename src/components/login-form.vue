@@ -64,6 +64,15 @@ export default {
   margin: 0 auto;
   margin-top: 30px;
 }
+
+.el-form {
+  padding: 0 25px;
+}
+
+.el-form-item {
+  color: #eeeeee !important;
+}
+
 .login-btn {
   text-align: center;
   margin-top: 35px;

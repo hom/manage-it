@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <Header />
+    <!-- <Header /> -->
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Header from '@/components/header.vue';
+// import Header from '@/components/header.vue';
 
 export default {
   name: 'app',
   components: {
-    Header
+    // Header
   }
 }
 </script>
@@ -19,12 +19,12 @@ export default {
 <style>
 body {
   margin: 0;
+  background: #110D11;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 </style>
