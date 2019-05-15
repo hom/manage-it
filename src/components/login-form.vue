@@ -1,18 +1,17 @@
 <template>
   <el-container>
-    <el-card class="box-card" header="登录管理台">
-      <el-form ref="LOGIN_FORM" :model="form" :rules="rules" status-icon class="login-form">
-        <el-form-item prop="username">
-          <el-input prefix-icon="el-icon-user" v-model="form.username" placeholder="邮箱或者用户名"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input prefix-icon="el-icon-lock" v-model="form.password" type="password" placeholder="请输入密码" @keyup.enter.native="login('LOGIN_FORM')"></el-input>
-        </el-form-item>
-        <el-form-item class="login-btn">
-          <el-button type="primary" @click="login('LOGIN_FORM')">立即登录</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
+    <el-form ref="LOGIN_FORM" :model="form" :rules="rules" status-icon class="login-form">
+      <h2 class="title">登录到控制台</h2>
+      <el-form-item prop="username">
+        <el-input prefix-icon="el-icon-user" v-model="form.username" placeholder="邮箱或者用户名"></el-input>
+      </el-form-item>
+      <el-form-item prop="password">
+        <el-input prefix-icon="el-icon-lock" v-model="form.password" type="password" placeholder="请输入密码" @keyup.enter.native="login('LOGIN_FORM')"></el-input>
+      </el-form-item>
+      <el-form-item class="login-btn">
+        <el-button type="primary" @click="login('LOGIN_FORM')">立即登录</el-button>
+      </el-form-item>
+    </el-form>
   </el-container>
 </template>
 
@@ -62,14 +61,15 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.login-form {
-  background-color: #fff;
-  color: #eeeeee;
-  min-width: 400px;
-}
 
 .el-form {
+  color: #eeeeee;
+  min-width: 400px;
   padding: 0 15px;
+}
+
+.title {
+  text-align: center;
 }
 
 .el-form-item {
