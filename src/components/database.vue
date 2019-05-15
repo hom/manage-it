@@ -1,8 +1,10 @@
 <template>
 <section>
   <el-table
+    ref="DATABASE_TABLE"
     stripe
     border
+    height="calc(100vh - 120px)"
     :data="collection.results"
     style="width: 100%"
     :cell-style="{'padding-top': '6px', 'padding-bottom': '6px', 'font-size': '14px', 'color': '#0E69A1'}"
@@ -21,7 +23,7 @@
       width="100">
       <template slot-scope="scope">
         <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
-        <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+        <el-button @click="handleDeleteRow(scope.row)" type="text" size="small">删除</el-button>
       </template>
     </el-table-column>
     <el-table-column
@@ -67,6 +69,11 @@
   <el-dialog ref="EDIT_CELL_DIALOG" :title="cell.field" :close="handleCloseEditCellDialog" :visible.sync="isShowEditCellDialog">
       <EditRowCell :cell="cell" />
   </el-dialog>
+
+  <el-footer>
+    <el-checkbox @change="toggleSelectAll" v-model="isSelectAll">{{ isSelectAll ? '取消全选' : '全选' }}</el-checkbox>
+    <el-button @click="handleDeleteRow" type="text">删除</el-button>
+  </el-footer>
 </section>
 </template>
 
@@ -78,6 +85,7 @@ import EditRowCell from '@/components/edit-row-cell.vue';
 export default {
   data() {
     return {
+      isSelectAll: false,
       multipleSelection: [],
       row: '',
       cell: '',
@@ -131,14 +139,33 @@ export default {
       this.row = row;
       this.isShowEditDialog = true;
     },
-    handleDelete(row) {
-      console.log(row);
+    handleDeleteRow() {
+      if (this.multipleSelection.length > 0) {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });
+        });
+      }
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
     handleCloseEditCellDialog() {
       this.cell = '';
+    },
+    toggleSelectAll() {
+      this.$refs.DATABASE_TABLE.toggleAllSelection();
     },
   },
 
@@ -157,3 +184,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.el-footer {
+  line-height: 60px;
+}
+</style>

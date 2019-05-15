@@ -39,10 +39,6 @@
         <template slot="title"><i class="el-icon-setting"></i>数据管理</template>
         <el-menu-item v-for="(schema, index) in schemas" :key="index" :index="`/database/${schema.className}`">{{ schema.className }}</el-menu-item>
       </el-submenu>
-      <el-submenu index="/database">
-        <template slot="title"><i class="el-icon-setting"></i>数据管理</template>
-        <el-menu-item v-for="(schema, index) in schemas" :key="index" :index="`/database/${schema.className}`">{{ schema.className }}</el-menu-item>
-      </el-submenu>
     </el-menu>
   </el-aside>
 </template>
