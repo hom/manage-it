@@ -33,7 +33,7 @@
       :prop="field.field"
       :label="`${field.field}/${field.type}`">
       <template slot-scope="scope">
-        <RowColumn :row="scope.row" :field="field" />
+        <Column :row="scope.row" :field="field" />
       </template>
     </el-table-column>
   </el-table>
@@ -73,7 +73,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import RowColumn from '@/components/row-column.vue';
+import Column from '@/components/column.vue';
 import EditRowCell from '@/components/edit-row-cell.vue';
 
 export default {
@@ -88,7 +88,7 @@ export default {
     }
   },
   components: {
-    RowColumn,
+    Column,
     EditRowCell,
   },
   computed: {
