@@ -1,11 +1,12 @@
 <template>
-  <component :is="cell"></component>
+  <component :is="cell.type" :field="cell.field"></component>
 </template>
 
 <script>
 import Pointer from '@/components/pointer.vue';
 import ACL from '@/components/acl.vue';
 import Date from '@/components/date.vue';
+import Boolean from '@/components/boolean.vue';
 
 export default {
   data() {
@@ -15,14 +16,11 @@ export default {
   components: {
     Pointer,
     ACL,
-    Date
+    Date,
+    Boolean,
   },
 
-  props: {
-    cell: {
-      type: String
-    }
-  }
+  props: ['cell'],
 }
 </script>
 

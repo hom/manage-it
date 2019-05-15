@@ -1,5 +1,5 @@
 <template>
-  <el-container style="height: 100vh; border: 1px solid #eee">
+  <el-container style="height: 100vh">
     <Aside />
     <el-container>
       <!-- <Header /> -->
@@ -33,5 +33,6 @@ export default {
 <style lang="scss" scoped>
 .el-main {
   background-color: #eeeeee;
+  padding: 0;
 }
 </style>

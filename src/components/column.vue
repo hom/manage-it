@@ -1,22 +1,21 @@
 <template>
   <span v-if="field.type === 'String' || field.type === 'Number'">{{ row[field.field] }}</span>
-  <span v-else-if="field.type === 'Date'">{{ formatTime(row[field.field]) }}</span>
-  <el-button size="mini" v-else-if="field.type === 'Pointer'" type="success" plain>{{ row[field.field] ? row[field.field].objectId : 'undefined' }}</el-button>
-  <el-switch
-    v-else-if="field.type === 'Boolean'"
-    v-model="row[field.field]"
-    disabled>
-  </el-switch>
+  <ColumnCell v-else-if="field.type === 'Pointer' || field.type === 'Date' || field.type === 'Boolean' || field.type === 'ACL'" :cell="{ type: field.type, field: row[field.field] }" />
   <span v-else>{{ JSON.stringify(row[field.field]) }}</span>
 </template>
 
 <script>
-import moment from 'moment';
+import ColumnCell from '@/components/column-cell.vue';
 
 export default {
   data() {
     return {};
   },
+
+  components: {
+    ColumnCell
+  },
+
   props: {
     row: {
       type: Object,
@@ -25,11 +24,7 @@ export default {
       type: Object,
     },
   },
-  methods: {
-    formatTime(time) {
-      return moment(time).format('YYYY-MM-DD HH:mm:ss');
-    },
-  },
+
 }
 </script>
 

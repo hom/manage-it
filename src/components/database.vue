@@ -1,11 +1,11 @@
 <template>
-<el-container>
+<section>
   <el-table
     stripe
     border
     :data="collection.results"
     style="width: 100%"
-    :cell-style="{'padding-top': '6px', 'padding-bottom': '6px', 'font-size': '14px'}"
+    :cell-style="{'padding-top': '6px', 'padding-bottom': '6px', 'font-size': '14px', 'color': '#0E69A1'}"
     @cell-mouse-enter="handleCellMouseEnter"
     @cell-mouse-leave="handleCellMouseLeave"
     @cell-dblclick="handleCellDbClick"
@@ -41,7 +41,6 @@
     <el-form :model="row">
       <el-form-item v-for="(field, index) in Object.keys(row)" :key="index" :label="field" :label-width="formLabelWidth">
         <el-switch v-if="schema.fields[field].type === 'Boolean'" v-model="row[field]"></el-switch>
-        <!-- <el-input v-else-if="schema.fields[field].type === 'Pointer'" v-model="row[field].objectId" :disabled="field === 'createdAt' || field === 'updatedAt' || field === 'objectId'" autocomplete="off"></el-input> -->
         <div v-else-if="schema.fields[field].type === 'ACL'">
           <el-form-item v-for="(acl, key) in Object.keys(row[field])" :key="key" :label="acl === '*' ? '所有人' : acl" prop="delivery">
             <el-switch
@@ -68,7 +67,7 @@
   <el-dialog ref="EDIT_CELL_DIALOG" :title="cell.field" :close="handleCloseEditCellDialog" :visible.sync="isShowEditCellDialog">
       <EditRowCell :cell="cell" />
   </el-dialog>
-</el-container>
+</section>
 </template>
 
 <script>
@@ -87,10 +86,12 @@ export default {
       isShowEditCellDialog: false,
     }
   },
+
   components: {
     Column,
     EditRowCell,
   },
+
   computed: {
     ...mapState({
       schema: (state) => state.schema.schema,
@@ -108,6 +109,7 @@ export default {
       collection: (state) => state.collection.collection,
     }),
   },
+
   methods: {
     handleCellMouseEnter(row, column, cell, e) {
       e.target.style.color = 'green';
@@ -122,7 +124,7 @@ export default {
       this.isShowEditCellDialog = true;
     },
     handleCellMouseLeave(row, column, cell, e) {
-      e.target.style.color = '#606266';
+      e.target.style.color = '#0E69A1';
     },
     handleEdit(row) {
       console.log(row);
@@ -139,11 +141,13 @@ export default {
       this.cell = '';
     },
   },
+
   mounted() {
     console.log(this.$route.params);
     this.$store.dispatch('schema/ACTION_FETCH_SCHEMA', this.$route.params.className);
     this.$store.dispatch('collection/ACTION_FETCH_COLLECTION', this.$route.params.className);
   },
+
   async beforeRouteUpdate(to, from, next) {
     if (to.path.startsWith('/database')) {
       await this.$store.dispatch('schema/ACTION_FETCH_SCHEMA', to.params.className);

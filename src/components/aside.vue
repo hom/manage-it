@@ -95,8 +95,15 @@ export default {
 }
 
 .el-dropdown {
+  margin: 0 auto;
   height: 60px;
   line-height: 60px;
   font-size: 18px;
+  color: #eeeeee;
+}
+
+.el-menu {
+  border: none;
+  text-align: left;
 }
 </style>
