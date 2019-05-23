@@ -7,7 +7,7 @@
     height="calc(100vh - 120px)"
     :data="collection.results"
     style="width: 100%"
-    :cell-style="{'padding-top': '6px', 'padding-bottom': '6px', 'font-size': '14px', 'color': '#0E69A1'}"
+    :cell-style="{'padding-top': '4px', 'padding-bottom': '4px', 'font-size': '12px', 'color': '#0E69A1'}"
     @cell-mouse-enter="handleCellMouseEnter"
     @cell-mouse-leave="handleCellMouseLeave"
     @cell-dblclick="handleCellDbClick"
@@ -22,8 +22,8 @@
       label="操作"
       width="100">
       <template slot-scope="scope">
-        <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
-        <el-button @click="handleDeleteRow(scope.row)" type="text" size="small">删除</el-button>
+        <el-button @click="handleEdit(scope.row)" type="text" size="small"><i class="el-icon-edit"></i></el-button>
+        <el-button @click="handleDeleteRow(scope.row)" type="text" size="small"><i class="el-icon-delete"></i></el-button>
       </template>
     </el-table-column>
     <el-table-column
