@@ -1,7 +1,5 @@
 <template>
-  <span v-if="field.type === 'String' || field.type === 'Number'">{{ row[field.field] }}</span>
-  <ColumnCell v-else-if="field.type === 'Pointer' || field.type === 'Date' || field.type === 'Boolean' || field.type === 'ACL'" :cell="{ type: field.type, field: row[field.field] }" />
-  <span v-else>{{ JSON.stringify(row[field.field]) }}</span>
+  <ColumnCell :cell="{ type: field.type, field: row[field.field] }" />
 </template>
 
 <script>
