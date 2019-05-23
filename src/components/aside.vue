@@ -10,11 +10,13 @@
       </el-dropdown-menu>
     </el-dropdown>
     <el-menu
+      unique-opened
       :default-active="active"
       :default-openeds="opens"
-      @open="handleOpen"
       background-color="#2F689B"
-      text-color="#ffffff"
+      text-color="#8fb9cf"
+      active-text-color="#ffffff"
+      @open="handleOpen"
       @select="handleSelect">
       <el-submenu index="/nav">
         <template slot="title"><i class="el-icon-message"></i>系统管理</template>
