@@ -13,7 +13,6 @@ import String from '@/components/cell/string.vue';
 import Object from '@/components/cell/object.vue';
 import File from '@/components/cell/file.vue';
 import Bytes from '@/components/cell/bytes.vue';
-import Polygon from '@/components/cell/polygon.vue';
 import GeoPoint from '@/components/cell/geo-point.vue';
 import Array from '@/components/cell/array.vue';
 
@@ -35,7 +34,6 @@ export default {
     Object,
     File,
     Bytes,
-    Polygon,
     GeoPoint,
     Array,
   },
