@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+// import Home from './views/dashboard/index.vue';
+import Layout from './layouts/index.vue';
 
 Vue.use(Router);
 
@@ -11,13 +12,14 @@ const router = new Router({
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    { path: '/', name: 'home', meta: { title: '首页' }, component: Home,
+    { path: '/', name: 'home', redirect: '/dashboard', meta: { title: '首页' }, component: Layout,
       children: [
         { path: '/schema/:className', component: () => import('./components/schema.vue'), },
         { path: '/database/:className', component: () => import('./components/database.vue'), },
+        { path: '/dashboard', component: () => import('./views/dashboard/index.vue'), },
       ]
     },
-    { path: '/login', name: 'login', meta: { title: '登录' }, component: () => import(/* webpackChunkName: "login" */ './views/Login.vue') },
+    { path: '/login', name: 'login', meta: { title: '登录' }, component: () => import(/* webpackChunkName: "login" */ './views/login/index.vue') },
   ],
 });
 

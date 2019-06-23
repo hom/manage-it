@@ -1,26 +1,10 @@
 <template>
-  <el-container style="height: 100vh">
-    <Aside />
-    <el-container>
-      <!-- <Header /> -->
-      <el-header>Header</el-header>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
-    </el-container>
-  </el-container>
+<h2>Dashboard</h2>
 </template>
 
 <script>
-import Aside from '@/components/aside.vue';
-// import Header from '@/components/header.vue';
-
 export default {
-  name: 'home',
-  components: {
-    Aside,
-    // Header,
-  },
+  name: 'dashboard',
   data() {
     return {}
   },
