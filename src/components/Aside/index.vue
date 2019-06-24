@@ -1,3 +1,4 @@
+
 <template>
   <el-aside width="200px">
     <el-dropdown>
@@ -13,7 +14,7 @@
       unique-opened
       :default-active="active"
       :default-openeds="opens"
-      background-color="#25547E"
+      background-color="#2F689B"
       text-color="#8fb9cf"
       active-text-color="#ffffff"
       @open="handleOpen"
