@@ -15,8 +15,11 @@ export default {
     }
   },
   actions: {
-    async ACTION_FETCH_SCHEMAS({ rootState, commit }) {
+    async ACTION_FETCH_SCHEMAS({ rootState, commit, dispatch }) {
       console.log(rootState);
+      if (!rootState.app.app) {
+        await dispatch('app/ACTION_CHECK_APP', null, { root: true });
+      }
       let result;
       try {
         result = await rootState.app.app.api.get('/schemas')
@@ -31,7 +34,10 @@ export default {
       })
       return commit('SET_SCHEMAS', schemas);
     },
-    async ACTION_FETCH_SCHEMA({ rootState, state, commit }, className) {
+    async ACTION_FETCH_SCHEMA({ rootState, state, commit, dispatch }, className) {
+      if (!rootState.app.app) {
+        await dispatch('app/ACTION_CHECK_APP', null, { root: true });
+      }
       let schema;
       if (state.schema && state.schema.className === className) {
         return state.schema;

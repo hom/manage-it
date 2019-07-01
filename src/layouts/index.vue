@@ -27,7 +27,7 @@ export default {
   mounted() {
     this.$store.dispatch('me/ACTION_CHECK_LOGIN');
     this.$store.dispatch('app/ACTION_CHECK_APP');
-  }
+  },
 }
 </script>
 

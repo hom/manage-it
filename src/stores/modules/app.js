@@ -71,7 +71,7 @@ export default {
         app: instance
       };
       console.log(app);
-      commit('SET_ME', app);
+      commit('SET_APP', app);
     },
 
     ACTION_CHECK_APP({ state, dispatch }) {

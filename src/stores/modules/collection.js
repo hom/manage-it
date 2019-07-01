@@ -11,7 +11,7 @@ export default {
     }
   },
   actions: {
-    async ACTION_FETCH_COLLECTION({ state, commit }, className) {
+    async ACTION_FETCH_COLLECTION({ rootState, state, commit }, className) {
       let collection;
 
       if (state.collection && state.collection.className === className) {
@@ -21,7 +21,7 @@ export default {
       if (!collection) {
         let result;
         try {
-          result = await state.app.app.api.get(`/classes/${className}`)
+          result = await rootState.app.app.api.get(`/classes/${className}`)
         } catch (error) {
           return console.error(error);
         }
