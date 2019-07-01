@@ -19,6 +19,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'object-property-newline': 'off',
     'arrow-parens': 'off',
+    'consistent-return': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',

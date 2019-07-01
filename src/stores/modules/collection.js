@@ -1,4 +1,4 @@
-import api from '@/api/index';
+// import api from '@/api/index';
 
 export default {
   namespaced: true,
@@ -17,11 +17,11 @@ export default {
       if (state.collection && state.collection.className === className) {
         return state.collection;
       }
-
+      console.log(state);
       if (!collection) {
         let result;
         try {
-          result = await api.get(`/parse/classes/${className}`)
+          result = await state.app.app.api.get(`/classes/${className}`)
         } catch (error) {
           return console.error(error);
         }

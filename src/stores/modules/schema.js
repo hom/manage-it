@@ -1,4 +1,4 @@
-import api from '@/api/index';
+// import api from '@/api/index';
 
 export default {
   namespaced: true,
@@ -15,10 +15,11 @@ export default {
     }
   },
   actions: {
-    async ACTION_FETCH_SCHEMAS({ commit }) {
+    async ACTION_FETCH_SCHEMAS({ rootState, commit }) {
+      console.log(rootState);
       let result;
       try {
-        result = await api.get('/parse/schemas')
+        result = await rootState.app.app.api.get('/schemas')
       } catch (error) {
         return console.error(error);
       }
@@ -30,7 +31,7 @@ export default {
       })
       return commit('SET_SCHEMAS', schemas);
     },
-    async ACTION_FETCH_SCHEMA({ state, commit }, className) {
+    async ACTION_FETCH_SCHEMA({ rootState, state, commit }, className) {
       let schema;
       if (state.schema && state.schema.className === className) {
         return state.schema;
@@ -42,7 +43,7 @@ export default {
       if (!schema) {
         let result;
         try {
-          result = await api.get(`/parse/schemas/${className}`)
+          result = await rootState.app.app.api.get(`/schemas/${className}`)
         } catch (error) {
           return console.error(error);
         }

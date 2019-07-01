@@ -6,10 +6,10 @@
         <el-input prefix-icon="el-icon-user" v-model="form.username" placeholder="邮箱或者用户名"></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input prefix-icon="el-icon-lock" v-model="form.password" type="password" placeholder="请输入密码" @keyup.enter.native="login('LOGIN_FORM')"></el-input>
+        <el-input prefix-icon="el-icon-lock" v-model="form.password" type="password" placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item class="login-btn">
-        <el-button type="primary" @click="login('LOGIN_FORM')">立即登录</el-button>
+        <el-button type="primary" @click="login('LOGIN_FORM')" @keyup.enter.native="login('LOGIN_FORM')">立即登录</el-button>
       </el-form-item>
     </el-form>
   </el-container>

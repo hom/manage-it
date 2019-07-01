@@ -28,22 +28,63 @@ export default {
       commit('SET_APPS', apps);
 
       if (apps.length === 1) {
+        const [instance] = apps;
+        console.log('TCL: ACTION_FETCH_APPS -> instance', instance);
+        localStorage.setItem('CURRENT_APP', instance.objectId);
         const app = {
           api: Axios.create({
-            baseURL: process.env.VUE_APP_BASE_URL,
+            baseURL: instance.serverUrl,
             headers: {
-              'X-Parse-Application-Id': process.env.VUE_APP_PARSE_APPID,
-              'X-Parse-JavaScript-Key': process.env.VUE_APP_PARSE_JAVASCRIPT_KEY,
-              'X-Parse-Master-Key': process.env.VUE_APP_PARSE_MASTER_KEY
+              'X-Parse-Application-Id': instance.appid,
+              'X-Parse-JavaScript-Key': instance.javascriptKey,
+              'X-Parse-Master-Key': instance.masterKey
             }
           }),
-          app: apps[0]
+          app: instance
         };
 
         commit('SET_APP', app);
         router.push('/');
       }
       return apps;
-    }
+    },
+
+    async ACTION_FETCH_APP({ commit }, objectId) {
+      let result;
+      try {
+        result = await api.get(`/parse/classes/App/${objectId}`);
+      } catch (error) {
+        console.error(error);
+      }
+
+      const instance = result.data;
+      console.log(instance);
+      const app = {
+        api: Axios.create({
+          baseURL: instance.serverUrl,
+          headers: {
+            'X-Parse-Application-Id': instance.appid,
+            'X-Parse-JavaScript-Key': instance.javascriptKey,
+            'X-Parse-Master-Key': instance.masterKey
+          }
+        }),
+        app: instance
+      };
+      console.log(app);
+      commit('SET_ME', app);
+    },
+
+    ACTION_CHECK_APP({ state, dispatch }) {
+      if (state.app) {
+        return;
+      }
+
+      const currentApp = localStorage.getItem('CURRENT_APP');
+      console.log(currentApp);
+      if (currentApp) {
+        return dispatch('ACTION_FETCH_APP', currentApp);
+      }
+      router.push('/404');
+    },
   }
 }

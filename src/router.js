@@ -22,6 +22,8 @@ const router = new Router({
         { path: '/schema/:className', component: () => import('./components/schema.vue'), },
         { path: '/database/:className', component: () => import('./components/database.vue'), },
         { path: '/dashboard', component: () => import('./views/dashboard/index.vue'), },
+        { path: '/401', component: () => import('./views/error/401.vue'), },
+        { path: '/404', component: () => import('./views/error/404.vue'), },
       ]
     },
     { path: '/apps', meta: { title: 'Apps' }, component: () => import('./views/apps/index.vue'), },
