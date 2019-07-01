@@ -1,9 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Home from './views/dashboard/index.vue';
+import NProgress from 'nprogress'; // progress bar
+import 'nprogress/nprogress.css'; // progress bar style
 import Layout from './layouts/index.vue';
 
+NProgress.configure({ showSpinner: false });
+
 Vue.use(Router);
+
+const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
 
 const router = new Router({
   mode: 'history',
@@ -24,14 +29,34 @@ const router = new Router({
   ],
 });
 
-
 router.beforeEach((to, from, next) => {
+  // start progress bar
+  NProgress.start()
+
   // 如果设置标题，拦截后设置标题
   if (to.meta.title) {
-    // eslint-disable-next-line
-    document.title = to.meta.title + ' - Manage it';
+    document.title = `${to.meta.title} - Manage it`;
   }
-  next()
+
+  const user = localStorage.getItem('CURRENT_USER');
+  if (user) {
+    if (to.path === '/login') {
+      // if is logged in, redirect to the home page
+      next({ path: '/' });
+    } else {
+      // if is logged in, redirect to the home page
+      next();
+    }
+    NProgress.done();
+  } else {
+    if (whiteList.indexOf(to.path) === -1) {
+      // other pages that do not have permission to access are redirected to the login page.
+      next(`/login?redirect=${to.path}`)
+    } else {
+      next();
+    }
+    NProgress.done();
+  }
 })
 
 export default router;
