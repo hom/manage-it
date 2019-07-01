@@ -19,6 +19,7 @@ const router = new Router({
         { path: '/dashboard', component: () => import('./views/dashboard/index.vue'), },
       ]
     },
+    { path: '/apps', meta: { title: 'Apps' }, component: () => import('./views/apps/index.vue'), },
     { path: '/login', name: 'login', meta: { title: '登录' }, component: () => import(/* webpackChunkName: "login" */ './views/login/index.vue') },
   ],
 });

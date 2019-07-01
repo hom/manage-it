@@ -24,7 +24,7 @@ export default {
 
       Message.success('登陆成功');
       setTimeout(() => {
-        router.push('/');
+        router.push('/apps');
       }, 1000)
     },
     ACTION_LOGOUT({ commit }) {
