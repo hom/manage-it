@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Aside from '@/components/aside.vue';
+import Aside from '@/components/Aside/index.vue';
 // import Header from '@/components/header.vue';
 
 export default {
