@@ -6,8 +6,7 @@
         切换应用<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>Parse-Server-Dashboard</el-dropdown-item>
-        <el-dropdown-item>Hammer-Server-Dashboard</el-dropdown-item>
+        <el-dropdown-item v-for="(app, index) in apps" :key="index">{{ app.name || app.appid }}</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
     <el-menu
@@ -71,6 +70,7 @@ export default {
     ...mapState({
       schemas: (state) => state.schema.schemas,
       active: (state) => state.nav.active,
+      apps: (state) => state.app.apps
     }),
   },
   mounted() {
