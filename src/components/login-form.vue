@@ -71,6 +71,7 @@ export default {
 
 .title {
   text-align: center;
+  color: #333333;
 }
 
 .el-form-item {

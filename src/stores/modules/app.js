@@ -39,25 +39,23 @@ export default {
       const apps = result.data.results;
       commit('SET_APPS', apps);
 
-      if (apps.length === 1) {
-        const [instance] = apps;
-        console.log('TCL: ACTION_FETCH_APPS -> instance', instance);
-        localStorage.setItem('CURRENT_APP', instance.objectId);
-        const app = {
-          api: Axios.create({
-            baseURL: instance.serverUrl,
-            headers: {
-              'X-Parse-Application-Id': instance.appid,
-              'X-Parse-JavaScript-Key': instance.javascriptKey,
-              'X-Parse-Master-Key': instance.masterKey
-            }
-          }),
-          app: instance
-        };
+      const [instance] = apps;
+      console.log('TCL: ACTION_FETCH_APPS -> instance', instance);
+      localStorage.setItem('CURRENT_APP', instance.objectId);
+      const app = {
+        api: Axios.create({
+          baseURL: instance.serverUrl,
+          headers: {
+            'X-Parse-Application-Id': instance.appid,
+            'X-Parse-JavaScript-Key': instance.javascriptKey,
+            'X-Parse-Master-Key': instance.masterKey
+          }
+        }),
+        app: instance
+      };
 
-        commit('SET_APP', app);
-        router.push('/');
-      }
+      commit('SET_APP', app);
+      router.push('/');
       return apps;
     },
 

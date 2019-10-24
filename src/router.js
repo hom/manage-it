@@ -21,7 +21,7 @@ const router = new Router({
       children: [
         { path: '/schema/:className', component: () => import('./components/schema.vue'), },
         { path: '/database/:className', component: () => import('./components/database.vue'), },
-        { path: '/dashboard', component: () => import('./views/dashboard/index.vue'), },
+        { path: '/dashboard', meta: { title: '仪表盘' }, component: () => import('./views/dashboard/index.vue'), },
         { path: '/401', component: () => import('./views/error/401.vue'), },
         { path: '/404', component: () => import('./views/error/404.vue'), },
       ]
