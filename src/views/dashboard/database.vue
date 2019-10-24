@@ -6,22 +6,18 @@
     <el-table
       :data="users"
       border
-      style="width: 100%"
-      :row-class-name="tableRowClassName">
+      style="width: 100%">
       <el-table-column
         prop="username"
-        label="用户名"
-        width="180">
+        label="用户名">
       </el-table-column>
       <el-table-column
         prop="createdAt"
-        label="创建日期"
-        width="180">
+        label="创建日期">
       </el-table-column>
       <el-table-column
         prop="isVIP"
-        label="用户类型"
-        width="100">
+        label="用户类型">
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.isVIP === '普通' ? 'primary' : 'success'"
@@ -39,22 +35,18 @@
     <el-table
       :data="orders"
       border
-      style="width: 100%"
-      :row-class-name="tableRowClassName">
+      style="width: 100%">
       <el-table-column
         prop="orderNumber"
-        label="订单号"
-        width="180">
+        label="订单号">
       </el-table-column>
       <el-table-column
         prop="createdAt"
-        label="创建时间"
-        width="180">
+        label="创建时间">
       </el-table-column>
       <el-table-column
         prop="status"
-        label="订单状态"
-        width="100">
+        label="订单状态">
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.status === '已完成' ? 'success' : 'primary'"
@@ -91,7 +83,7 @@ function formatUserType(isVIP) {
 }
 
 export default {
-  name: 'dashboard',
+  name: 'database',
   data() {
     return {
       users: [],

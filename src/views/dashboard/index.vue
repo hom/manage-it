@@ -12,20 +12,33 @@
       <el-button type="warning">订单数</el-button>
     </el-badge>
   </el-row>
+  <h3>数据增长详情</h3>
   <el-row>
-    <UserLineChart :data="users" />
+    <span>请选择日期范围: </span>
+    <el-select v-model="defaultTimeInterval" placeholder="请选择">
+      <el-option
+        v-for="item in intervals"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+      </el-option>
+    </el-select>
   </el-row>
   <el-row>
-    <VIPLineChart :data="vips" />
+    <UserLineChart :xAxis="timePointList" :data="users" />
   </el-row>
   <el-row>
-    <OrderLineChart :data="orders" />
+    <VIPLineChart :xAxis="timePointList" :data="vips" />
+  </el-row>
+  <el-row>
+    <OrderLineChart :xAxis="timePointList" :data="orders" />
   </el-row>
 </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import moment from 'moment';
 import UserLineChart from '@/components/user-line-chart.vue';
 import VIPLineChart from '@/components/vip-line-chart.vue';
 import OrderLineChart from '@/components/order-line-chart.vue';
@@ -38,6 +51,13 @@ export default {
       vips: [],
       orders: [],
       opderLineOptions: {},
+      timePointList: [],
+      defaultTimeInterval: 7,
+      intervals: [
+        { label: '最近7天', value: '7' },
+        { label: '最近一个月', value: '30' },
+        { label: '最近三个圆', value: '90' },
+      ]
     }
   },
   components: {
@@ -51,6 +71,16 @@ export default {
     })
   },
   methods: {
+    generatorTimePoint() {
+      if (this.timePointList.length > 0) {
+        this.timePointList = [];
+      }
+      for (let i = 0; i < this.defaultTimeInterval; i += 1) {
+        this.timePointList.push(moment().subtract(i, 'd').format('YYYY-MM-DD'));
+      }
+
+      this.timePointList.reverse();
+    },
     fetch() {
       if (!this.app) return;
       this.fetchUsers();
@@ -82,10 +112,14 @@ export default {
   watch: {
     app() {
       this.fetch();
-    }
+    },
+    defaultTimeInterval() {
+      this.generatorTimePoint()
+    },
   },
   mounted() {
     this.fetch();
+    this.generatorTimePoint();
   }
 }
 </script>
