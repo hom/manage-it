@@ -1,5 +1,5 @@
 <template>
-<h2>Dashboard</h2>
+<h2>dashboard</h2>
 </template>
 
 <script>
@@ -8,6 +8,7 @@ export default {
   data() {
     return {}
   },
+  components: {},
   mounted() {
     this.$store.dispatch('me/ACTION_CHECK_LOGIN');
   }

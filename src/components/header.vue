@@ -1,19 +1,18 @@
 <template>
-  <el-header>
-    <!-- <Logo />
-    <UserNav /> -->
-    header
-  </el-header>
+  <section>
+    <Logo />
+    <UserNav />
+  </section>
 </template>
 
 <script>
-// import Logo from '@/components/logo.vue';
-// import UserNav from '@/components/user-nav.vue';
+import Logo from '@/components/logo.vue';
+import UserNav from '@/components/user-nav.vue';
 
 export default {
   components: {
-    // Logo,
-    // UserNav,
+    Logo,
+    UserNav,
   },
   data() {
     return {};

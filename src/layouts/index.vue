@@ -2,8 +2,6 @@
   <el-container style="height: 100vh">
     <Aside />
     <el-container>
-      <!-- <Header /> -->
-      <el-header>Header</el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -13,13 +11,11 @@
 
 <script>
 import Aside from '@/components/Aside/index.vue';
-// import Header from '@/components/header.vue';
 
 export default {
   name: 'home',
   components: {
     Aside,
-    // Header,
   },
   data() {
     return {}
