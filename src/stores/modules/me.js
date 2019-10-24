@@ -46,8 +46,10 @@ export default {
       return user;
     },
     ACTION_LOGOUT({ commit }) {
-      localStorage.removeItem('CURRENT_USER')
+      localStorage.removeItem('CURRENT_USER');
       commit('SET_ME', '');
+
+      localStorage.removeItem('CURRENT_APP');
 
       Message.success('退出登录');
       setTimeout(() => {

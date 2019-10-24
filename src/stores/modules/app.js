@@ -34,7 +34,7 @@ export default {
       try {
         result = await api.get('/parse/classes/App', {
           params: {
-            keys: 'objectId, serverUrl, appid, javascriptKey'
+            keys: 'objectId,serverUrl,appid,javascriptKey'
           }
         })
       } catch (error) {

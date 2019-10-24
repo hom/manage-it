@@ -56,7 +56,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$route.params);
     this.$store.dispatch('schema/ACTION_FETCH_SCHEMA', this.$route.params.className);
   },
   async beforeRouteUpdate(to, from, next) {

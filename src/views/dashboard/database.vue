@@ -133,8 +133,6 @@ export default {
       const orders = result.data.results;
       this.orders = orders.map((item) => {
         const { createdAt, user, product, status } = item;
-        console.log(user);
-        console.log(product);
         return Object.assign(item, {
           createdAt: formatTime(createdAt),
           user: user.username,

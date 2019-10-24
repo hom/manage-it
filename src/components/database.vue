@@ -134,7 +134,6 @@ export default {
       e.target.style.color = '#0E69A1';
     },
     handleEdit(row) {
-      console.log(row);
       this.row = row;
       this.isShowEditDialog = true;
     },
@@ -169,7 +168,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.$route.params);
     this.$store.dispatch('schema/ACTION_FETCH_SCHEMA', this.$route.params.className);
     this.$store.dispatch('collection/ACTION_FETCH_COLLECTION', this.$route.params.className);
   },

@@ -19,8 +19,8 @@ export default {
       apps: (state) => state.app.apps
     }),
   },
-  mounted() {
-    this.$store.dispatch('app/ACTION_FETCH_APPS');
+  async mounted() {
+    await this.$store.dispatch('app/ACTION_FETCH_APPS');
   }
 }
 </script>

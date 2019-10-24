@@ -58,19 +58,14 @@ export default {
     async fetch() {
       if (!this.app) return;
       const today = moment().format('YYYY-MM-DD');
-      console.log(today);
       await this.fetchDataToReport(today, '今天');
       const recent7Day = moment().subtract(7, 'days').format('YYYY-MM-DD');
-      console.log(recent7Day);
       await this.fetchDataToReport(recent7Day, '最近7天');
       const thisMonth = moment().format('YYYY-MM');
-      console.log(thisMonth);
       await this.fetchDataToReport(thisMonth, '本月');
       const recent1Month = moment().subtract(1, 'months').format('YYYY-MM-DD');
-      console.log(recent1Month);
       await this.fetchDataToReport(recent1Month, '最近一个月');
       const recent3Month = moment().subtract(3, 'months').format('YYYY-MM-DD');
-      console.log(recent3Month);
       await this.fetchDataToReport(recent3Month, '最近三个月');
     },
     async fetchDataToReport(from, name) {
@@ -134,7 +129,6 @@ export default {
         vipUserCount: completeOrders.results.length,
         totalIncome,
       }
-      console.log(report);
       this.data.push(report);
     },
     async fetchUsers(params) {
