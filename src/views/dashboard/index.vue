@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     fetch() {
+      if (!this.app) return;
       this.fetchUsers();
       this.fetchOrders();
     },
@@ -83,6 +84,9 @@ export default {
       this.fetch();
     }
   },
+  mounted() {
+    this.fetch();
+  }
 }
 </script>
 
