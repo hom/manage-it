@@ -41,7 +41,6 @@ export default {
 
       if (apps.length === 1) {
         const [instance] = apps;
-        console.log('TCL: ACTION_FETCH_APPS -> instance', instance);
         localStorage.setItem('CURRENT_APP', instance.objectId);
         const app = {
           api: Axios.create({
@@ -70,7 +69,6 @@ export default {
       }
 
       const instance = result.data;
-      console.log(instance);
       const app = {
         api: Axios.create({
           baseURL: instance.serverUrl,
@@ -82,7 +80,6 @@ export default {
         }),
         app: instance
       };
-      console.log(app);
       commit('SET_APP', app);
     },
 
@@ -92,7 +89,6 @@ export default {
       if (state.collection && state.collection.className === className) {
         return state.collection;
       }
-      console.log(state);
       if (!collection) {
         let result;
         try {
@@ -106,13 +102,11 @@ export default {
       if (collection && collection instanceof Object) {
         collection.className = className;
       }
-      console.log(collection);
       commit('SET_COLLECTION', collection);
       return collection;
     },
 
     async ACTION_FETCH_SCHEMAS({ rootState, commit, dispatch }) {
-      console.log(rootState);
       if (!rootState.app.app) {
         await dispatch('app/ACTION_CHECK_APP', null, { root: true });
       }
@@ -123,7 +117,6 @@ export default {
         return console.error(error);
       }
 
-      console.log(result.data);
       const schemas = {};
       result.data.results.forEach((item) => {
         schemas[item.className] = item;
@@ -153,7 +146,6 @@ export default {
       }
 
       commit('SET_SCHEMA', schema);
-      console.log(schema);
       return schema;
     },
 
@@ -163,7 +155,6 @@ export default {
       }
 
       const currentApp = localStorage.getItem('CURRENT_APP');
-      console.log(currentApp);
       if (currentApp) {
         return dispatch('ACTION_FETCH_APP', currentApp);
       }

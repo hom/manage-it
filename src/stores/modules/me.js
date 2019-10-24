@@ -13,11 +13,17 @@ export default {
     },
   },
   actions: {
-    ACTION_CHECK_LOGIN({ state }) {
-      if (!state.me && !localStorage.getItem('CURRENT_USER')) {
-        return router.push('/login');
+    ACTION_CHECK_LOGIN({ commit, state }) {
+      if (state.me) {
+        return;
       }
-      return state.me;
+
+      if (localStorage.getItem('CURRENT_USER')) {
+        const me = JSON.parse(localStorage.getItem('CURRENT_USER'));
+        commit('SET_ME', me);
+        return me;
+      }
+      return router.push('/login');
     },
     async ACTION_LOGIN({ commit }, form) {
       let result;
@@ -30,7 +36,6 @@ export default {
         return Message.error('登录失败');
       }
       const user = result.data;
-      console.log(user);
       commit('SET_ME', user);
       localStorage.setItem('CURRENT_USER', JSON.stringify(user));
 

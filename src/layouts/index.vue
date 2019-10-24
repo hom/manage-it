@@ -2,6 +2,9 @@
   <el-container style="height: 100vh">
     <Aside />
     <el-container>
+      <el-header>
+        <UserNav />
+      </el-header>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -11,11 +14,13 @@
 
 <script>
 import Aside from '@/components/Aside/index.vue';
+import UserNav from '@/components/user-nav.vue';
 
 export default {
   name: 'home',
   components: {
     Aside,
+    UserNav,
   },
   data() {
     return {}
@@ -31,5 +36,11 @@ export default {
 .el-main {
   background-color: #eeeeee;
   padding: 0;
+}
+.el-header {
+  background-color: #eeeeee;
+  border-bottom: 1px solid #dddddd;
+  line-height: 60px;
+  text-align: right;
 }
 </style>
