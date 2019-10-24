@@ -5,6 +5,5 @@ export default Axios.create({
   headers: {
     'X-Parse-Application-Id': process.env.VUE_APP_PARSE_APPID,
     'X-Parse-JavaScript-Key': process.env.VUE_APP_PARSE_JAVASCRIPT_KEY,
-    'X-Parse-Master-Key': process.env.VUE_APP_PARSE_MASTER_KEY
   }
 })

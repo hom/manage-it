@@ -32,7 +32,11 @@ export default {
     async ACTION_FETCH_APPS({ commit }) {
       let result;
       try {
-        result = await api.get('/parse/classes/App')
+        result = await api.get('/parse/classes/App', {
+          params: {
+            keys: 'objectId, serverUrl, appid, javascriptKey'
+          }
+        })
       } catch (error) {
         return console.error(error);
       }
@@ -48,7 +52,6 @@ export default {
             headers: {
               'X-Parse-Application-Id': instance.appid,
               'X-Parse-JavaScript-Key': instance.javascriptKey,
-              'X-Parse-Master-Key': instance.masterKey
             }
           }),
           app: instance
@@ -75,7 +78,6 @@ export default {
           headers: {
             'X-Parse-Application-Id': instance.appid,
             'X-Parse-JavaScript-Key': instance.javascriptKey,
-            'X-Parse-Master-Key': instance.masterKey
           }
         }),
         app: instance

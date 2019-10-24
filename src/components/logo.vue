@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/" class="logo" tag="h2">管理台</router-link>
+  <router-link to="/" class="logo" tag="h2">数据管理</router-link>
 </template>
 
 <style lang="scss" scoped>
