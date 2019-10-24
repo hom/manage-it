@@ -11,7 +11,7 @@ Vue.use(Router);
 const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
 
 const router = new Router({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
     // route level code-splitting
