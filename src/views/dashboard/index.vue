@@ -56,7 +56,7 @@ export default {
       intervals: [
         { label: '最近7天', value: '7' },
         { label: '最近一个月', value: '30' },
-        { label: '最近三个圆', value: '90' },
+        { label: '最近三个月', value: '90' },
       ]
     }
   },
