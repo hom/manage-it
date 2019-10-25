@@ -5,6 +5,7 @@
     <h3>用户数据</h3>
     <el-table
       :data="users"
+      stripe
       border
       style="width: 100%">
       <el-table-column
@@ -34,6 +35,7 @@
     <h3>订单数据</h3>
     <el-table
       :data="orders"
+      stripe
       border
       style="width: 100%">
       <el-table-column

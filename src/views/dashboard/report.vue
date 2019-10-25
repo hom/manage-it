@@ -2,10 +2,23 @@
 <section class="report">
   <h2>报表统计</h2>
   <el-row>
-    <h3>用户数据</h3>
+    <span>请选择报表范围： </span>
+    <el-date-picker
+      v-model="reportInterval"
+      type="daterange"
+      align="right"
+      unlink-panels
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期"
+      :picker-options="pickerOptions">
+    </el-date-picker>
+  </el-row>
+  <el-row>
     <el-table
       :data="data"
       border
+      stripe
       style="width: 100%">
       <el-table-column
         prop="name"
@@ -46,6 +59,37 @@ export default {
   data() {
     return {
       data: [],
+      reportInterval: '',
+      pickerOptions: {
+        shortcuts: [{
+          text: '最近一周',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近一个月',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+            picker.$emit('pick', [start, end]);
+          }
+        }, {
+          text: '最近三个月',
+          onClick(picker) {
+            const end = new Date();
+            const start = new Date();
+            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+            picker.$emit('pick', [start, end]);
+          }
+        }],
+        disabledDate(date) {
+          return moment(date).isAfter(moment());
+        }
+      },
     }
   },
   components: {},
@@ -57,18 +101,11 @@ export default {
   methods: {
     async fetch() {
       if (!this.app) return;
-      const today = moment().format('YYYY-MM-DD');
-      await this.fetchDataToReport(today, '今天');
-      const recent7Day = moment().subtract(7, 'days').format('YYYY-MM-DD');
-      await this.fetchDataToReport(recent7Day, '最近7天');
-      const thisMonth = moment().format('YYYY-MM');
-      await this.fetchDataToReport(thisMonth, '本月');
-      const recent1Month = moment().subtract(1, 'months').format('YYYY-MM-DD');
-      await this.fetchDataToReport(recent1Month, '最近一个月');
-      const recent3Month = moment().subtract(3, 'months').format('YYYY-MM-DD');
-      await this.fetchDataToReport(recent3Month, '最近三个月');
+      const todayFrom = moment().format('YYYY-MM-DD');
+      const todayTo = new Date();
+      await this.fetchDataToReport(todayFrom, todayTo, '今天');
     },
-    async fetchDataToReport(from, name) {
+    async fetchDataToReport(from, to, name) {
       const queryUserParams = {
         params: {
           count: 1,
@@ -78,6 +115,10 @@ export default {
               $gte: {
                 __type: 'Date',
                 iso: moment(from).toISOString()
+              },
+              $lt: {
+                __type: 'Date',
+                iso: moment(to).toISOString()
               }
             }
           }
@@ -94,6 +135,10 @@ export default {
               $gte: {
                 __type: 'Date',
                 iso: moment(from).toISOString()
+              },
+              $lt: {
+                __type: 'Date',
+                iso: moment(to).toISOString()
               }
             }
           }
@@ -109,7 +154,11 @@ export default {
             createdAt: {
               $gte: {
                 __type: 'Date',
-                iso: moment(from).toISOString()
+                iso: moment(from).toISOString(),
+              },
+              $lt: {
+                __type: 'Date',
+                iso: moment(to).toISOString(),
               }
             }
           }
@@ -129,7 +178,7 @@ export default {
         vipUserCount: completeOrders.results.length,
         totalIncome,
       }
-      this.data.push(report);
+      this.data.splice(1, 1, report);
     },
     async fetchUsers(params) {
       let result;
@@ -153,6 +202,14 @@ export default {
   watch: {
     app() {
       this.fetch();
+    },
+    reportInterval(value) {
+      if (!value) {
+        return this.data.pop();
+      }
+      const [from, to] = value;
+      const name = `${moment(from).format('YYYY-MM-DD')} - ${moment(to).format('YYYY-MM-DD')}`;
+      this.fetchDataToReport(from, to, name);
     }
   },
   mounted() {
@@ -165,5 +222,8 @@ export default {
 .report {
   padding: 0 20px;
   background-color: #eeeeee;
+}
+.el-row {
+  margin-bottom: 15px;
 }
 </style>
